@@ -26,7 +26,7 @@ export class SignUpUseCase{
       throw new AccountAlreadyExists();
     }
     // gerando hash da senha  segurança para não salvar a senha  "10" = dificuldade quanto mais maior leva mais tempo para geração
-    const hashedPassword = await hash(password,10);
+    const hashedPassword =await hash(password,10);
 
     //incluindo conta no banco de dados
     await prismaClient.account.create({

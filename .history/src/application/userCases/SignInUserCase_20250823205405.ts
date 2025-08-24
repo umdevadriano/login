@@ -4,16 +4,17 @@ import{hash} from 'bcryptjs'
 
 //tipagem
 interface IInput{
-    name :string;
     email :string;
     password: string
 };
 
 //tipagem
-type IOutput = void;
+interface  IOutput{
+  accessToken :string
+}
 
 //classe incluir conta verificando consistência  dos dados
-export class SignUpUseCase{
+export class SignInUserCase{
   async execute({email,name,password}: IInput ) : Promise <IOutput> {
 
     //Verificando e-mail único.
@@ -26,7 +27,7 @@ export class SignUpUseCase{
       throw new AccountAlreadyExists();
     }
     // gerando hash da senha  segurança para não salvar a senha  "10" = dificuldade quanto mais maior leva mais tempo para geração
-    const hashedPassword = await hash(password,10);
+    const hashedPassword =await hash(password,10);
 
     //incluindo conta no banco de dados
     await prismaClient.account.create({
